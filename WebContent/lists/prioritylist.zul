@@ -1,0 +1,171 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<borderlayout apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('list.PriorityListViewModel')">
+		<center autoscroll="true" border="none">
+		
+			<vlayout hflex="1" vflex="1">
+				<hlayout>
+
+					<panel collapsible="true">
+						<panelchildren>
+							<grid>
+								<columns>
+									<column width="100px"></column>
+									<column width="150px"></column>
+									<column width="100px"></column>
+									<column width="100px"></column>
+									<column width="120px"></column>
+									<column width="150px"></column>
+									<column width="150px"></column>
+								</columns>
+								<rows>
+									<row>
+
+										<cell>
+											<label value="Type"></label>
+										</cell>
+										<cell>
+											<listbox multiple="false" hflex="1" mold="select"
+												model="@load(vm.lstTypes)" selectedItem="@bind(vm.selectedType)">
+												<template name="model" var="item">
+													<listitem>
+														<listcell label="@load(item)"></listcell>
+													</listitem>
+												</template>
+
+											</listbox>
+										</cell>
+										
+										<cell>
+											<button label="Search" hflex="1" onClick="@command('searchCommand')"
+												></button>
+										</cell>
+										<cell>
+											<button label="Refresh" hflex="1" onClick="@command('refreshCommand')"
+												visible="true"></button>
+										</cell>
+										
+										<cell>
+											<label value="No. of Records"></label>
+										</cell>
+										<cell>
+											<listbox multiple="false" hflex="1" mold="select"
+												model="@load(vm.lstAllPageSize)" selectedItem="@bind(vm.selectedAllPageSize)">
+												<template name="model" var="item">
+													<listitem>
+														<listcell label="@load(item)"></listcell>
+													</listitem>
+												</template>
+
+
+											</listbox>
+										</cell>
+										
+										<cell>
+											<button label="Remove Priority" hflex="1" onClick="@command('removeCommand')"
+												visible="true"></button>
+										</cell>
+										
+										
+									</row>									
+								</rows>
+							</grid>
+						</panelchildren>
+					</panel>
+</hlayout>
+
+				<listbox model="@bind(vm.lstPriority)" vflex="1" hflex="1" multiple="true" checkmark="true"
+					id="customersGrid" selectedItems="@bind(vm.selectedEntities)"  width="900px"
+					mold="paging" pageSize="@bind(vm.selectedPageSize)">
+				<auxhead sclass="category-center">
+				<auxheader colspan="1" label="" width="50px">
+						</auxheader>
+						<auxheader colspan="1">
+							<image src="/images/funnel.png" />
+							<textbox instant="true"  hflex="1" value="@bind(vm.filter.name)"
+								onChange="@command('changeFilter')" />
+						</auxheader>
+						
+						<auxheader colspan="1">
+							<image src="/images/funnel.png" />
+							<textbox instant="true"  hflex="1" value="@bind(vm.filter.type)"
+								onChange="@command('changeFilter')" />
+						</auxheader>
+						
+						<auxheader colspan="1">
+							<image src="/images/funnel.png" />
+							<textbox instant="true"  hflex="1" value="@bind(vm.filter.phone)"
+								onChange="@command('changeFilter')" />
+						</auxheader>
+						<auxheader colspan="1">
+							<image src="/images/funnel.png" />
+							<textbox instant="true"  hflex="1" value="@bind(vm.filter.altphone)"
+								onChange="@command('changeFilter')" />
+						</auxheader>
+						<auxheader colspan="1">
+							<image src="/images/funnel.png" />
+							<textbox instant="true"  hflex="1" value="@bind(vm.filter.email)"
+								onChange="@command('changeFilter')" />
+						</auxheader>
+												
+						<auxheader colspan="1">
+							<image src="/images/funnel.png" />
+							<textbox instant="true"  hflex="1" value="@bind(vm.filter.note)"
+								onChange="@command('changeFilter')" />
+						</auxheader>
+					</auxhead>
+					<listhead menupopup="auto" sizable="true">		
+					<listheader width="50px"/>				
+						<listheader label="Name" sort="auto('name')" width="285px"  />		
+						<listheader label="Type" sort="auto('listType')" width="130px" />			
+						<listheader label="Phone" sort="auto('phone')" width="130px" />
+						<listheader label="Alt. Phone" sort="auto('altphone')" width="120px" />
+						<listheader label="Email" sort="auto('email')" width="150px" />											
+						<listheader label="Note" sort="auto('note')" width="400px"  />						
+
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell></listcell>	
+							<listcell >
+								<label value="@bind(each.name)" />
+							</listcell>
+						<listcell >
+								<label value="@bind(each.listType)" />
+							</listcell>
+
+							 <listcell >
+								<label value="@bind(each.phone)" />
+							</listcell> 
+							<listcell >
+								<label value="@bind(each.altphone)" />
+							</listcell>
+							
+							<listcell >
+								<label value="@bind(each.email)" />
+							</listcell>
+						
+						<listcell >
+								<label value="@bind(each.note)" />
+							</listcell>					
+
+						</listitem>
+					</template>
+				</listbox>
+				<hlayout hflex="1" style="text-align: right">
+					<label value="@load(vm.footer)"
+						style="color:#2c6f99;text-align: right;font-weight: bold;"></label>
+					<space></space>
+					<space></space>
+					<space></space>
+					<space></space>
+				</hlayout>
+				
+
+			</vlayout>
+		</center>
+
+	</borderlayout>
+</zk>
